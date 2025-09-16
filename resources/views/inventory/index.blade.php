@@ -16,6 +16,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Description</th>
@@ -24,8 +25,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($inventories as $inventory)
+                                @foreach($inventories as $key => $inventory)
                                     <tr>
+                                        <td>{{ ($inventories->currentPage() - 1) * $inventories->perPage() + $key + 1 }}</td>
                                         <td>{{ $inventory->id }}</td>
                                         <td>{{ $inventory->name }}</td>
                                         <td>{{ $inventory->description }}</td>
@@ -39,6 +41,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="flex justify-content mt-6">
+                            {{ $inventories->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

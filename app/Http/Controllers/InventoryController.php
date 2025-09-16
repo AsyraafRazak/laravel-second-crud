@@ -8,9 +8,11 @@ use App\Models\Inventory;
 class InventoryController extends Controller
 {
     //make index function
-    public function index()
+    public function index(Request $request)
     {
-        $inventories = Inventory::all();
+        // $inventories = Inventory::all();
+        $per_page = $request->input('per_page', 5); // Number of items per page, default to 5
+        $inventories = Inventory::paginate($per_page);
         return view('inventory.index', compact('inventories'));
     }
     public function create()
