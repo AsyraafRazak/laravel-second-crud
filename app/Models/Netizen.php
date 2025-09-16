@@ -5,12 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Inventory extends Model
+class Netizen extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'name',
-        'qty',
-        'description',
-    ];
+    protected $table='netizens';
+    protected $fillable = ['name', 'ic_number', 'race', 'address'];
 }
