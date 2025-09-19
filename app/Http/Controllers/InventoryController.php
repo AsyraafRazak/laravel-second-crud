@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Inventory;
+use Illuminate\Support\Facades\Auth;
 
 class InventoryController extends Controller
 {
@@ -21,16 +22,26 @@ class InventoryController extends Controller
     }
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'qty' => 'required|integer',
-        ]);
+        $validated = $request->validate(
+            [
+                'name' => 'required',
+                'description' => 'required',
+                'qty' => 'required|integer',
+            ],
+            [
+                'name.required' => 'The name field is required.',
+                'description.required' => 'The description field is required.',
+                'qty.required' => 'The quantity field is required.',
+                'qty.integer' => 'The quantity must be an integer.',
+            ]
+        );
 
-        Inventory::create($request->all());
+        $validated['user_id'] = Auth::id();
+
+        Inventory::create($validated);
 
         return redirect()->route('inventories.index')
-                         ->with('success', 'Inventory item created successfully.');
+            ->with('success', 'Inventory item created successfully.');
     }
     public function show(Inventory $inventory)
     {
@@ -42,19 +53,27 @@ class InventoryController extends Controller
     }
     public function update(Request $request, Inventory $inventory)
     {
-        $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'qty' => 'required|integer',
-        ]);
-        $inventory->update($request->all());
+        $validated = $request->validate(
+            [
+                'name' => 'required',
+                'description' => 'required',
+                'qty' => 'required|integer',
+            ],
+            [
+                'name.required' => 'The name field is required.',
+                'description.required' => 'The description field is required.',
+                'qty.required' => 'The quantity field is required.',
+                'qty.integer' => 'The quantity must be an integer.',
+            ]
+        );
+        $inventory->update($validated);
         return redirect()->route('inventories.index')
-                         ->with('success', 'Inventory item updated successfully.');
+            ->with('success', 'Inventory item updated successfully.');
     }
     public function destroy(Inventory $inventory)
     {
         $inventory->delete();
         return redirect()->route('inventories.index')
-                         ->with('success', 'Inventory item deleted successfully.');
+            ->with('success', 'Inventory item deleted successfully.');
     }
 }
