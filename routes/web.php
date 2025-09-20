@@ -15,3 +15,5 @@ Route::get('/inventories/{inventory}', [InventoryController::class, 'show'])->na
 Route::get('/inventories/{inventory}/edit', [InventoryController::class, 'edit'])->name('inventories.edit');
 Route::post('/inventories/{inventory}/edit', [InventoryController::class, 'update'])->name('inventories.update');
 Route::get('/inventories/{inventory}/delete', [InventoryController::class, 'destroy'])->name('inventories.destroy');
+Route::post('/inventories/{inventory}/restore', [InventoryController::class, 'restore'])->name('inventories.restore');
+Route::delete('/inventories/{inventory}/force-delete', [InventoryController::class, 'forceDelete'])->name('inventories.forceDelete');

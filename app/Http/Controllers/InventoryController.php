@@ -19,8 +19,9 @@ class InventoryController extends Controller
     {
         // $inventories = Inventory::all();
         $per_page = $request->input('per_page', 5); // Number of items per page, default to 5
-        $inventories = Inventory::paginate($per_page);
-        return view('inventory.index', compact('inventories'));
+        $inventories = Inventory::paginate($per_page, ['*'],'inventories_page');
+        $deletedInventories = Inventory::onlyTrashed()->paginate($per_page, ['*'],'deleted_inventories_page');
+        return view('inventory.index', compact('inventories', 'deletedInventories'));
     }
     public function create()
     {
@@ -81,5 +82,21 @@ class InventoryController extends Controller
         $inventory->delete();
         return redirect()->route('inventories.index')
             ->with('success', 'Inventory item deleted successfully.');
+    }
+
+    public function restore($id)
+    {
+        $inventory = Inventory::withTrashed()->findOrFail($id);
+        $inventory->restore();
+        return redirect()->route('inventories.index')
+            ->with('success', 'Inventory item restored successfully.');
+    }
+
+    public function forceDelete($id)
+    {
+        $inventory = Inventory::withTrashed()->findOrFail($id);
+        $inventory->forceDelete();
+        return redirect()->route('inventories.index')
+            ->with('success', 'Inventory item permanently deleted successfully.');
     }
 }

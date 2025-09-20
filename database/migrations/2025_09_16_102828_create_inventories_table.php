@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('qty');
             $table->text('description');
             $table->foreignId('user_id')->constrained('users');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
