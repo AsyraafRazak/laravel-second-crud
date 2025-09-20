@@ -24,6 +24,7 @@ class InventoryFactory extends Factory
             'name' => $this->faker->name,
             'qty' => $this->faker->numberBetween(1,10),
             'description' => $this->faker->sentence(),
+            'user_id' => User::factory(), // Create a new user for each inventory item
         ];
     }
 }

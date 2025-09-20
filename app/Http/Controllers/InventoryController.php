@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class InventoryController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     //make index function
     public function index(Request $request)
     {
