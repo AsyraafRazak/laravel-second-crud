@@ -55,6 +55,9 @@
                         <span>{{ __('Deleted Inventories Index') }}</span>
                     </div>
                     <div class="card-body">
+                        @if ($deletedInventories->count() == 0)
+                            <p>No deleted inventories found.</p>
+                        @else
                         <table class="table">
                             <thead>
                                 <tr>
@@ -76,7 +79,8 @@
                                         <td>{{ $inventory->description }}</td>
                                         <td>{{ $inventory->qty }}</td>
                                         <td>
-                                            <form action="{{ route('inventories.restore', $inventory->id) }}" method="POST" style="display:inline;">
+                                            <form action="{{ route('inventories.restore', $inventory->id) }}" method="POST"
+                                                style="display:inline;">
                                                 @csrf
                                                 <button type="submit" class="btn btn-success btn-sm">Restore</button>
                                             </form>
@@ -93,6 +97,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        @endif
                         <div class="flex justify-content mt-6">
                             {{ $deletedInventories->links() }}
                         </div>
