@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\AuditController;
 
 Auth::routes();
 
@@ -17,3 +18,6 @@ Route::post('/inventories/{inventory}/edit', [InventoryController::class, 'updat
 Route::get('/inventories/{inventory}/delete', [InventoryController::class, 'destroy'])->name('inventories.destroy');
 Route::post('/inventories/{inventory}/restore', [InventoryController::class, 'restore'])->name('inventories.restore');
 Route::delete('/inventories/{inventory}/force-delete', [InventoryController::class, 'forceDelete'])->name('inventories.forceDelete');
+
+
+Route::get('/audits', [AuditController::class, 'index'])->name('audits.index');

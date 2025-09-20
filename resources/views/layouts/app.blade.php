@@ -37,6 +37,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('inventories.index') }}">{{ __('Inventory') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('audits.index') }}">{{ __('Audit') }}</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
